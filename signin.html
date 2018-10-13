@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>NUMERO UNO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,700,300'>
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+
+  <div class="signup__container">
+  <div class="container__child signup__thumbnail">
+
+    <div class="thumbnail__content text-center">
+      <h1 class="heading--primary">Welcome to NUMERO UNO</h1>
+      <h2 class="heading--secondary">Are you ready?</h2>
+    </div>
+    <div class="thumbnail__links">
+      <ul class="list-inline m-b-0 text-center">
+        <li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="#" target="_blank"><fa class="fa fa-instagram"></fa></a></li>
+        
+        <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+      </ul>
+    </div>
+    <div class="signup__overlay"></div>
+  </div>
+  <div class="container__child signup__form">
+    <div>
+      <div id="result"></div>
+
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input class="form-control" type="text" name="email" id="email" placeholder="Enter your email "  required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input class="form-control" type="password" name="password" id="password" placeholder="Enter your password"  required />
+      </div>
+
+      <div class="m-t-lg">
+        <ul class="list-inline">
+          <li>
+            
+            <button class="btn btn--form" id="login">Login</button>
+          </li>
+          <li>
+            <a class="signup__link" href="index.html">I am not a member</a>
+          </li>
+        </ul>
+      </div>
+    </div>  
+  </div>
+</div>
+  
+  
+
+</body>
+  <script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#login').click(function(){
+
+        
+        var password = $('#password').val();
+
+        var email = $('#email').val();
+
+        $.ajax({
+          type:'POST',
+          url:'signin.php',
+          data:{password:password,email:email},
+          success:function(data)
+          {
+
+           $('#result').html(data).fadeIn().delay(5000).fadeOut('slow');
+           var error = document.getElementById('error');
+           var response = error.getAttribute('error');
+           if(response==0)
+           {
+            window.location.href = 'nu.php';
+           }
+            if(response==1)
+            {
+
+            $('#password').val(null);
+
+            $('#password').css('background-color','#ffe6e6');
+            }
+            if(response==2)
+            {
+               $('#email').val(null);
+               $('#email').css('background-color','#ffe6e6');
+                           $('#password').val(null);
+
+            $('#password').css('background-color','white');
+            }
+
+            
+
+          }
+        });
+
+      });
+    });
+  </script>
+</html>

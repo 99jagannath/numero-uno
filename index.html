@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>NUMERO UNO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,700,300'>
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+
+  <div class="signup__container">
+  <div class="container__child signup__thumbnail">
+
+    <div class="thumbnail__content text-center">
+       <h1 class="heading--primary">Welcome to NUMERO UNO</h1>
+      <h2 class="heading--secondary">Are you ready?</h2>
+    </div>
+    <div class="thumbnail__links">
+      <ul class="list-inline m-b-0 text-center">
+        <li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="#" target="_blank"><fa class="fa fa-instagram"></fa></a></li>
+        
+        <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+      </ul>
+    </div>
+    <div class="signup__overlay"></div>
+  </div>
+  <div class="container__child signup__form">
+    <div>
+      <div id="result"></div>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input class="form-control" type="text" name="username" id="username" placeholder="Enter your user name" required />
+      </div>
+      <div class="form-group">
+         <label for="mobileno">MOBILE NO</label>
+        <input class="form-control" type="text" name="mobileno" id="mobileno" placeholder="Enter your mobile no" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input class="form-control" type="text" name="email" id="email" placeholder="Enter your email "  required />
+      </div>
+      <div class="form-group">
+        <label for="college name">College Name</label>
+        <input class="form-control" type="text" name="collegename" id="college" placeholder="Enter your college name " required />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input class="form-control" type="password" name="password" id="password" placeholder="Enter your password"  required />
+      </div>
+      <div class="form-group">
+        <label for="passwordRepeat">Repeat Password</label>
+        <input class="form-control" type="password" name="passwordRepeat" id="passwordRepeat" placeholder="Re enter your password" equired />
+      </div>
+      <div class="form-group">
+        <label for="passwordRepeat">Referal</label>
+        <input class="form-control" type="password" name="referal" id="referal" placeholder="Re enter your referal code" equired />
+      </div>
+      <div class="m-t-lg">
+        <ul class="list-inline">
+          <li>
+            
+            <button class="btn btn--form" id="register">Resister</button>
+          </li>
+          <li>
+            <a class="signup__link" href="signin.html">I am already a member</a>
+          </li>
+        </ul>
+      </div>
+    </div>  
+  </div>
+</div>
+  
+  
+
+</body>
+  <script
+  src="http://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#register').click(function(){
+        var username = $('#username').val();
+        var mobileno = $('#mobileno').val();
+        var password = $('#password').val();
+        var repassword = $('#passwordRepeat').val();
+        var email = $('#email').val();
+        var college = $('#college').val();
+        var referal = $('#referal').val();
+        $.ajax({
+          type:'POST',
+          url:'signup.php',
+          data:{username:username,mobileno:mobileno,password:password,repassword:repassword,email:email,college:college,referal:referal},
+          success:function(data)
+          {
+
+           $('#result').html(data).fadeIn().delay(5000).fadeOut('slow');
+           var error = document.getElementById('error');
+           var response = error.getAttribute('error');
+            if(response==0 || response==1)
+            {
+            $('#username').val(null);
+            $('#mobileno').val(null);
+            $('#password').val(null);
+            $('#passwordRepeat').val(null);
+            $('#email').val(null);
+            $('#college').val(null);
+            $('#username').css('background-color','white');
+            $('#mobileno').css('background-color','white');
+            $('#password').css('background-color','white');
+            $('#passwordRepeat').css('background-color','white');
+            $('#email').css('background-color','white');
+            $('#college').css('background-color','white');
+
+            }
+            if(response==2)
+            {
+               $('#email').val(null);
+               $('#email').css('background-color','#ffe6e6');
+            }
+            if(response==3 ||response==5 ||response==6)
+            {
+            $('#password').val(null);
+            $('#passwordRepeat').val(null); 
+            $('#password').css('background-color','#ffe6e6');
+            $('#passwordRepeat').css('background-color','#ffe6e6');
+            }
+            if(response==4 ||response==7)
+            {
+               $('#mobileno').val(null);
+               $('#mobileno').css('background-color','#ffe6e6');
+            }
+            
+
+          }
+        });
+
+      });
+    });
+  </script>
+</html>
